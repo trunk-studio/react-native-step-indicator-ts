@@ -130,39 +130,48 @@ const StepIndicator = ({
       backgroundColor: customStyles.separatorUnFinishedColor,
       position: 'absolute',
     };
-    if (direction === 'vertical') {
-      progressBarBackgroundStyle = {
-        ...progressBarBackgroundStyle,
-        left: (width - customStyles.separatorStrokeWidth) / 2,
-        top: height / (2 * stepCount),
-        bottom: height / (2 * stepCount),
-        width:
-          customStyles.separatorStrokeUnfinishedWidth === 0
-            ? customStyles.separatorStrokeWidth
-            : customStyles.separatorStrokeUnfinishedWidth,
-      };
-    } else {
-      progressBarBackgroundStyle = {
-        ...progressBarBackgroundStyle,
-        top: (height - customStyles.separatorStrokeWidth) / 2,
-        left: width / (2 * stepCount),
-        right: width / (2 * stepCount),
-        height:
-          customStyles.separatorStrokeUnfinishedWidth === 0
-            ? customStyles.separatorStrokeWidth
-            : customStyles.separatorStrokeUnfinishedWidth,
-      };
-    }
+    // if (direction === 'vertical') {
+    //   progressBarBackgroundStyle = {
+    //     ...progressBarBackgroundStyle,
+    //     left: (width - customStyles.separatorStrokeWidth) / 2,
+    //     top: height / (2 * stepCount),
+    //     bottom: height / (2 * stepCount),
+    //     width:
+    //       customStyles.separatorStrokeUnfinishedWidth === 0
+    //         ? customStyles.separatorStrokeWidth
+    //         : customStyles.separatorStrokeUnfinishedWidth,
+    //   };
+    // } else {
+    //   progressBarBackgroundStyle = {
+    //     ...progressBarBackgroundStyle,
+    //     top: (height - customStyles.separatorStrokeWidth) / 2,
+    //     left: width /  (2 * stepCount),
+    //     right: width / (2 * stepCount),
+    //     height:
+    //       customStyles.separatorStrokeUnfinishedWidth === 0
+    //         ? customStyles.separatorStrokeWidth
+    //         : customStyles.separatorStrokeUnfinishedWidth,
+    //   };
+    // }
     return (
-      <View
-        onLayout={(event) => {
-          if (direction === 'vertical') {
-            setProgressBarSize(event.nativeEvent.layout.height);
-          } else {
-            setProgressBarSize(event.nativeEvent.layout.width);
-          }
-        }}
-        style={progressBarBackgroundStyle}
+      // <View
+      //   onLayout={(event) => {
+      //     if (direction === 'vertical') {
+      //       setProgressBarSize(event.nativeEvent.layout.height);
+      //     } else {
+      //       setProgressBarSize(event.nativeEvent.layout.width);
+      //     }
+      //   }}
+      //   style={progressBarBackgroundStyle}
+      // />
+      <View 
+      style={{
+        marginLeft: 35,
+        marginRight: 35,
+        top: '50%',
+        zIndex: -1,
+        borderBottomColor: '#00c990',
+        borderBottomWidth: 1}}
       />
     );
   };
@@ -210,7 +219,11 @@ const StepIndicator = ({
         >
           <View
             style={[
-              styles.stepContainer,
+              // styles.stepContainer,
+              position == 0 && (getStepStatus(position) == STEP_STATUS.CURRENT ? styles.stepContainer0_big : styles.stepContainer0_small),
+              position == 1 && (getStepStatus(position) == STEP_STATUS.UNFINISHED ? styles.stepContainer1_small : styles.stepContainer1_big),
+              (position == 1 && getStepStatus(position) == STEP_STATUS.FINISHED) && styles.stepContainer1_small_finished,  
+              position == 2 && (getStepStatus(position) == STEP_STATUS.UNFINISHED ? styles.stepContainer2_small : styles.stepContainer2_big),
               direction === 'vertical'
                 ? { flexDirection: 'column' }
                 : { flexDirection: 'row' },
@@ -427,7 +440,7 @@ const StepIndicator = ({
       {width !== 0 && (
         <React.Fragment>
           {renderProgressBarBackground()}
-          {renderProgressBar()}
+          {/* {renderProgressBar()} */}
         </React.Fragment>
       )}
       {renderStepIndicator()}
@@ -443,8 +456,9 @@ const styles = StyleSheet.create({
   stepIndicatorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     backgroundColor: 'rgba(1,0,0,0)',
+    // backgroundColor: 'gray',
   },
   stepLabelsContainer: {
     justifyContent: 'space-around',
@@ -454,11 +468,89 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 2,
   },
-  stepContainer: {
+  // stepContainer: {
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   backgroundColor: 'pink',
+  //   shadowColor: 'gray',
+  //   shadowRadius: 10,
+  //   shadowOpacity: 0.3,
+  // },
+  stepContainer0_big: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingLeft: 25,
+    // backgroundColor: 'blue',
+  },
+  stepContainer0_small: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingLeft: 32,
+    // backgroundColor: 'blue',
+  },
+  stepContainer1_small: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingLeft: 10,
+    // backgroundColor: 'red',
+  },
+  stepContainer1_small_finished: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingRight: 5,
+    // backgroundColor: 'red',
+  },
+  stepContainer1_big: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    // backgroundColor: 'red',
+  },
+  stepContainer2_big: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingRight: 28,
+    // backgroundColor: 'yellow',
+  },
+  stepContainer2_small: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    shadowColor: 'gray',
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingRight: 35,
+    // backgroundColor: 'yellow',
   },
   stepLabel: {
     fontSize: 12,
