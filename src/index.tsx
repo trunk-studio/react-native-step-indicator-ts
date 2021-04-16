@@ -410,18 +410,21 @@ const StepIndicator = ({
     Animated.sequence([
       Animated.timing(progressAnim, {
         toValue: isNaN(animateToPosition) ? 0 : animateToPosition,
-        duration: 200,
+        // duration: 200,
+        duration: 1,
         useNativeDriver: false,
       }),
       Animated.parallel([
         Animated.timing(sizeAnim, {
           toValue: customStyles.currentStepIndicatorSize,
-          duration: 100,
+          // duration: 100,
+          duration: 1,
           useNativeDriver: false,
         }),
         Animated.timing(borderRadiusAnim, {
           toValue: customStyles.currentStepIndicatorSize / 2,
-          duration: 100,
+          // duration: 100,
+          duration: 1,
           useNativeDriver: false,
         }),
       ]),
@@ -486,6 +489,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.3,
     paddingLeft: 25,
+    height: 150,
     // backgroundColor: 'blue',
   },
   stepContainer0_small: {
@@ -496,6 +500,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.3,
     paddingLeft: 32,
+    height: 150,
     // backgroundColor: 'blue',
   },
   stepContainer1_small: {
@@ -507,6 +512,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.3,
     paddingLeft: 10,
+    height: 150,
     // backgroundColor: 'red',
   },
   stepContainer1_small_finished: {
@@ -518,6 +524,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.3,
     paddingRight: 5,
+    height: 150,
     // backgroundColor: 'red',
   },
   stepContainer1_big: {
@@ -528,6 +535,7 @@ const styles = StyleSheet.create({
     shadowColor: 'gray',
     shadowRadius: 10,
     shadowOpacity: 0.3,
+    height: 150,
     // backgroundColor: 'red',
   },
   stepContainer2_big: {
@@ -539,6 +547,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.3,
     paddingRight: 28,
+    height: 150,
     // backgroundColor: 'yellow',
   },
   stepContainer2_small: {
@@ -550,6 +559,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.3,
     paddingRight: 35,
+    height: 150,
     // backgroundColor: 'yellow',
   },
   stepLabel: {
